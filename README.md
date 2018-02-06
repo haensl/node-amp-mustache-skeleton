@@ -44,6 +44,7 @@ AMP page skeleton served via node.js featuring mustache templating and pm2.
       wireframe.mustache                # base wireframe
       pageA.mustache                    # view partial to be wrapped in wireframe.mustache
       pageB.mustache
+  gulpfile.js
   package.json
   package-lock.json
 ```

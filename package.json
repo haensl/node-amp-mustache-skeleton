@@ -22,6 +22,7 @@
     "url": "git+https://github.com/haensl/node-amp-mustache-skeleton.git"
   },
   "keywords": [
+    "ci",
     "nodejs",
     "amp",
     "amp-html",
