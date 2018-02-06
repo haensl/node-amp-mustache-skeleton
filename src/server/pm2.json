@@ -1,0 +1,21 @@
+{
+  "apps": [
+    {
+      "name": "node-amp-mustache-skeleton",
+      "script": "dist/index.js",
+      "env": {
+        "NODE_ENV": "dev"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      },
+      "watch": true,
+      "watch_options": {
+        "awaitWriteFinish": {
+          "stabilityThreshold": 10000,
+          "pollInterval": 1000
+        }
+      }
+    }
+  ]
+}

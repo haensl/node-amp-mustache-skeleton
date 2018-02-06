@@ -1,0 +1,68 @@
+{
+  "name": "node-amp-mustache-skeleton",
+  "version": "1.0.0",
+  "description": "AMP page skeleton served via node.js featuring mustache templating.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=8.9.4"
+  },
+  "scripts": {
+    "start": "[ $NODE_ENV == production ] && run-s build start:server || run-s build start:watch",
+    "start:server": "[ $NODE_ENV == production ] && pm2-runtime start ./pm2.json || pm2-runtime start dist/pm2.json",
+    "start:watch": "run-p start:server watch:all",
+    "postinstall": "pm2 update",
+    "test": "mocha",
+    "build": "gulp build",
+    "watch:client": "gulp watch:client",
+    "watch:server": "gulp watch:server",
+    "watch:all": "run-p watch:client watch:server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haensl/node-amp-mustache-skeleton.git"
+  },
+  "keywords": [
+    "nodejs",
+    "amp",
+    "amp-html",
+    "mustache",
+    "mustache-templates",
+    "mustache-templating",
+    "mustache-js",
+    "node",
+    "node-js",
+    "pm2"
+  ],
+  "author": {
+    "name": "HP Dietz",
+    "email": "h.p.dietz@gmail.com",
+    "twitter": "@h_p_d"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haensl/node-amp-mustache-skeleton/issues"
+  },
+  "homepage": "https://github.com/haensl/node-amp-mustache-skeleton#readme",
+  "dependencies": {
+    "koa": "^2.4.1",
+    "koa-compress": "^2.0.0",
+    "koa-static": "^4.0.2",
+    "pm2": "^2.9.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.2.5",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-amphtml-validator": "^1.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-embed-json": "^1.2.1",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-mustache": "^3.0.1",
+    "gulp-postcss": "^7.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "npm-run-all": "^4.1.2"
+  }
+}
