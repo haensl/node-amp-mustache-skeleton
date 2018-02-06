@@ -1,0 +1,7 @@
+{
+  "author": "HP Dietz",
+  "title": "Node AMP Skeleton",
+  "domain": "github.com/haensl/node-amp-mustache-skeleton",
+  "description": "AMP page skeleton served via node.js featuring mustache templating.",
+  "name": "Node AMP Mustache Skeleton"
+}
