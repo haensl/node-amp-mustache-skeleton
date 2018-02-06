@@ -162,6 +162,7 @@ gulp.task('html', ['templates', 'css'], () =>
       .pipe($.embedJson({
         root: DIR_SRC_JSON
       }))
+      .pipe($.minifyInlineJson())
       .pipe($.htmlmin(OPTS_HTMLMIN))
       .pipe(gulp.dest(DIR_DIST))
       .on('end', () => {
