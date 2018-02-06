@@ -4,15 +4,17 @@ const serveStatic = require('koa-static');
 const compress = require('koa-compress');
 const Z_SYNC_FLUSH = require('zlib').Z_SYNC_FLUSH;
 const PORT = process.env.PORT || 8080;
+const COMPRESSION_THRESHOLD = process.env.COMPRESSION_THRESHOLD || 0;
+const CACHE_MAXAGE = process.env.CACHE_MAXAGE || 60000;
 const app = new Koa();
 
 app.use(compress({
-  threshold: 0,
+  threshold: COMPRESSION_THRESHOLD,
   flush: Z_SYNC_FLUSH
 }));
 
 app.use(serveStatic(__dirname, {
-  maxage: 60000
+  maxage: CACHE_MAXAGE
 }));
 
 app.listen(PORT);

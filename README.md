@@ -109,7 +109,11 @@ Please look at [`src/templates/vars.json`](src/templates/vars.json) and [`src/te
 
 #### Server
 
-This skeleton comes equipped with a basic [`Koa`](http://koajs.com/) server with compression enabled. By default the server runs on port 8080, which can be adjusted via the `PORT` environment variable.
+This skeleton comes equipped with a environment aware [`Koa`](http://koajs.com/) server with compression and basic caching enabled. Configure the server via the following environment variables:
+
+* `PORT` [default:  8080]
+* `COMPRESSION_THRESHOLD` [default: 0]
+* `CACHE_MAXAGE`: [default: 60000 *(= 1 minute)*]
 
 Please have a look at [`src/server/index.js`](src/server/index.js) and adjust according to your needs.
 
