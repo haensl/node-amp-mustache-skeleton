@@ -7,8 +7,8 @@
     "node": ">=8.9.4"
   },
   "scripts": {
-    "start": "[ $NODE_ENV == production ] && run-s build start:server || run-s build start:watch",
-    "start:server": "[ $NODE_ENV == production ] && pm2-runtime start ./pm2.json --env production || pm2-runtime start dist/pm2.json",
+    "start": "[ $NODE_ENV == production ] && pm2-runtime start ./pm2.json --env production || run-s build start:watch",
+    "start:server": "([ $NODE_ENV == production ] && pm2-runtime start ./pm2.json --env production) || (cd dist && pm2-runtime start ./pm2.json)",
     "start:watch": "run-p start:server watch:all",
     "postinstall": "pm2 update",
     "test": "mocha",
