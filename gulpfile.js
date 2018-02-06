@@ -39,6 +39,12 @@ const ensureDirectory = (directory) =>
   dirExists(directory)
     || fs.mkdirSync(directory);
 
+const validateAMP = () =>
+  gulp.src(`${DIR_DIST}/**/index.html`)
+    .pipe($.amphtmlValidator.validate())
+    .pipe($.amphtmlValidator.format())
+    .pipe($.amphtmlValidator.failAfterError());
+
 gulp.task('ensureDistDirExists', () =>
   ensureDirectory(DIR_DIST));
 
@@ -160,6 +166,7 @@ gulp.task('html', ['templates', 'css'], () =>
       .pipe(gulp.dest(DIR_DIST))
       .on('end', () => {
         del.sync(`${DIR_DIST}/${FILE_STYLES}`);
+        validateAMP();
         resolve();
       })
       .on('error', reject)
