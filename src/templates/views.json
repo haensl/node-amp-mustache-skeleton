@@ -2,15 +2,7 @@
   {
     "name": "Home",
     "vars": {
-      "description": "Hello there.",
       "href": "/"
-    }
-  },
-  {
-    "name": "Contact",
-    "vars": {
-      "description": "Contact me.",
-      "href": "/contact"
     }
   }
 ]

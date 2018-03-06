@@ -1,6 +1,8 @@
 const os = require('os');
 const Koa = require('koa');
-const serveStatic = require('koa-static');
+const serve = require('koa-static');
+const etag = require('koa-etag');
+const conditional = require('koa-conditional-get');
 const compress = require('koa-compress');
 const Z_SYNC_FLUSH = require('zlib').Z_SYNC_FLUSH;
 const PORT = process.env.PORT || 8080;
@@ -13,7 +15,10 @@ app.use(compress({
   flush: Z_SYNC_FLUSH
 }));
 
-app.use(serveStatic(__dirname, {
+app.use(conditional());
+app.use(etag());
+
+app.use(serve(__dirname, {
   maxage: CACHE_MAXAGE
 }));
 

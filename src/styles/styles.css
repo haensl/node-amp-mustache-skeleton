@@ -1,3 +1,7 @@
-#Home h2 {
-  color: #ff0000;
+#Home {
+  display: flex;
+}
+
+.centering {
+  justify-content: center;
 }

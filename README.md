@@ -9,6 +9,8 @@ AMP page skeleton served via node.js featuring mustache templating and pm2.
 * Navigate to [`http://localhost:8080`](http://localhost:8080) in your browser to see stuff.
 * Start developing.
 
+![Intro](src/img/intro.gif)
+
 ## Directory layout
 
 ```bash
