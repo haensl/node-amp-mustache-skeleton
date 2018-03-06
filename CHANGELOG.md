@@ -1,3 +1,7 @@
+## 1.2.0
+* Add etags.
+* Refactor demo site.
+
 ## 1.1.0
 * Add Docker container.
 
