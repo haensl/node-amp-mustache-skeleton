@@ -45,37 +45,41 @@ const validateAMP = () =>
     .pipe($.amphtmlValidator.format())
     .pipe($.amphtmlValidator.failAfterError());
 
-gulp.task('ensureDistDirExists', () =>
-  ensureDirectory(DIR_DIST));
+gulp.task('ensureDistDirExists', (done) => {
+  ensureDirectory(DIR_DIST);
+  done();
+});
 
-gulp.task('ensureDistImgDirExists', () =>
-  ensureDirectory(DIR_DIST_IMG));
+gulp.task('ensureDistImgDirExists', (done) => {
+  ensureDirectory(DIR_DIST_IMG);
+  done();
+});
 
-gulp.task('clean:seofiles', ['ensureDistDirExists'], () =>
-  del.sync([
+gulp.task('clean:seofiles', gulp.series(['ensureDistDirExists', () =>
+  del([
     'google*+.html',
     'robots.txt',
     'sitemap.xml'
   ].map((pattern) => `${DIR_DIST}/${pattern}`), {
     force: true
-  }));
+  })]));
 
-gulp.task('clean:html', ['ensureDistDirExists'], () =>
-  del.sync([`${DIR_DIST}/**/*.html`], {
+gulp.task('clean:html', gulp.series(['ensureDistDirExists', () =>
+  del([`${DIR_DIST}/**/*.html`], {
     force: true
-  }));
+  })]));
 
-gulp.task('clean:css', ['ensureDistDirExists'], () =>
-  del.sync([`${DIR_DIST}/*.css`], {
+gulp.task('clean:css', gulp.series(['ensureDistDirExists', () =>
+  del([`${DIR_DIST}/*.css`], {
     force: true
-  }));
+  })]));
 
-gulp.task('clean:assets', ['ensureDistImgDirExists'], () =>
-  del.sync([`${DIR_DIST_IMG}/*`], {
+gulp.task('clean:assets', gulp.series(['ensureDistImgDirExists', () =>
+  del([`${DIR_DIST_IMG}/*`], {
     force: true
-  }));
+  })]));
 
-gulp.task('clean:server', ['ensureDistDirExists'], () =>
+gulp.task('clean:server', gulp.series(['ensureDistDirExists', () =>
   new Promise((resolve, reject) =>
   fs.readdir(DIR_SRC_SERVER, (err, files) => {
     try {
@@ -86,21 +90,21 @@ gulp.task('clean:server', ['ensureDistDirExists'], () =>
     } catch (e) {
       reject(e);
     }
-  })));
+  }))]));
 
-gulp.task('clean:package', ['ensureDistDirExists'], () =>
-  del.sync([`${DIR_DIST}/package*.json`], {
+gulp.task('clean:package', gulp.series(['ensureDistDirExists', () =>
+  del([`${DIR_DIST}/package*.json`], {
     force: true
-  }));
+  })]));
 
-gulp.task('seofiles', ['clean:seofiles'], () =>
+gulp.task('seofiles', gulp.series(['clean:seofiles', () =>
   new Promise((resolve, reject) =>
     gulp.src(`${DIR_SRC_SEO}/*`)
       .pipe(gulp.dest(DIR_DIST))
       .on('end', resolve)
-      .on('error', reject)));
+      .on('error', reject))]));
 
-gulp.task('templates', ['clean:html'], () =>
+gulp.task('templates', gulp.series(['clean:html', () =>
   Promise.all(VIEWS.map((view) =>
     new Promise((resolve, reject) => {
       fs.readFile(`${DIR_SRC_TEMPLATES}/${view.name.toLowerCase()}.mustache`, 'utf8', (err, partial) => {
@@ -138,9 +142,9 @@ gulp.task('templates', ['clean:html'], () =>
       });
     })
   ))
-);
+]));
 
-gulp.task('css', ['clean:css'], () =>
+gulp.task('css', gulp.series(['clean:css', () =>
   new Promise((resolve, reject) =>
     gulp.src(`${DIR_SRC_CSS}/*.css`)
       .pipe($.concat(FILE_STYLES))
@@ -148,9 +152,9 @@ gulp.task('css', ['clean:css'], () =>
       .pipe($.cssmin())
       .pipe(gulp.dest(DIR_DIST))
       .on('end', resolve)
-      .on('error', reject)));
+      .on('error', reject))]));
 
-gulp.task('html', ['templates', 'css'], () =>
+gulp.task('html', gulp.series(['templates', 'css', () =>
   new Promise((resolve, reject) =>
     gulp.src(`${DIR_DIST}/**/*.html`)
       .pipe($.replace(DIRECTIVE_INCLUDE_CSS, (match) =>
@@ -171,43 +175,43 @@ gulp.task('html', ['templates', 'css'], () =>
         resolve();
       })
       .on('error', reject)
-  )
-);
+  )]
+));
 
-gulp.task('assets', ['clean:assets'], () =>
+gulp.task('assets', gulp.series(['clean:assets', () =>
   new Promise((resolve, reject) =>
     gulp.src(`${DIR_SRC_IMG}/*`)
       .pipe(gulp.dest(DIR_DIST_IMG))
       .on('end', resolve)
-      .on('error', reject)));
+      .on('error', reject))]));
 
-gulp.task('server', ['clean:server', 'package'], () =>
-  new Promise((resolve, reject) =>
-    gulp.src(`${DIR_SRC_SERVER}/*`)
-      .pipe(gulp.dest(DIR_DIST))
-      .on('end', resolve)
-      .on('error', reject)));
-
-gulp.task('package', ['clean:package'], () =>
+gulp.task('package', gulp.series(['clean:package', () =>
   new Promise((resolve, reject) =>
     gulp.src('./package*.json')
       .pipe(gulp.dest(DIR_DIST))
       .on('end', resolve)
-      .on('error', reject)));
+      .on('error', reject))]));
 
-gulp.task('build:client', ['html', 'assets']);
-gulp.task('build:server', ['server']);
-gulp.task('build', ['build:client', 'build:server']);
+gulp.task('server', gulp.series(['clean:server', 'package', () =>
+  new Promise((resolve, reject) =>
+    gulp.src(`${DIR_SRC_SERVER}/*`)
+      .pipe(gulp.dest(DIR_DIST))
+      .on('end', resolve)
+      .on('error', reject))]));
 
-gulp.task('watch:client', ['build:client'], () => {
-  gulp.watch(`${DIR_SRC}/**/*.+(css|mustache|json)`, ['html']);
-  gulp.watch(`${DIR_SRC_IMG}/**/*`, ['assets']);
-  gulp.watch(`${DIR_SRC_SEO}/*`, ['seofiles']);
-});
+gulp.task('build:client', gulp.parallel(['html', 'assets']));
+gulp.task('build:server', gulp.parallel(['server']));
+gulp.task('build', gulp.parallel(['build:client', 'build:server']));
 
-gulp.task('watch:server', ['build:server'], () => {
-  gulp.watch(`${DIR_SRC_SERVER}/*`, ['build:server']);
-});
+gulp.task('watch:client', gulp.series(['build:client', () => {
+  gulp.watch(`${DIR_SRC}/**/*.+(css|mustache|json)`, gulp.parallel(['html']));
+  gulp.watch(`${DIR_SRC_IMG}/**/*`, gulp.parallel(['assets']));
+  gulp.watch(`${DIR_SRC_SEO}/*`, gulp.parallel(['seofiles']));
+}]));
 
-gulp.task('default', ['watch:client']);
+gulp.task('watch:server', gulp.series(['build:server', () => {
+  gulp.watch(`${DIR_SRC_SERVER}/*`, gulp.parallel(['build:server']));
+}]));
+
+gulp.task('default', gulp.parallel(['watch:client']));
 

@@ -1,9 +1,10 @@
 # node-amp-mustache-skeleton
-AMP page skeleton served via node.js featuring mustache templating and pm2.
+AMP page skeleton served via node.js featuring mustache templating and equipped for Dockerization.
 
 ## Quick start
 
 * Fork this repo.
+* `npm i -g gulp-cli`
 * `npm i`
 * `npm start`
 * Navigate to [`http://localhost:8080`](http://localhost:8080) in your browser to see stuff.
@@ -25,7 +26,6 @@ AMP page skeleton served via node.js featuring mustache templating and pm2.
     index.js
     package.json
     package-lock.json
-    pm2.json
     robots.txt
     sitemap.xml
   src/                                  # source code
@@ -37,7 +37,6 @@ AMP page skeleton served via node.js featuring mustache templating and pm2.
       sitemap.xml
     server/                             # node server source
       index.js                          # koa server
-      pm2.json                          # pm2 configuration
     styles/                             # css
       mystyles.css
     templates/                          # mustache templates
@@ -46,6 +45,7 @@ AMP page skeleton served via node.js featuring mustache templating and pm2.
       wireframe.mustache                # base wireframe
       pageA.mustache                    # view partial to be wrapped in wireframe.mustache
       pageB.mustache
+  Dockerfile
   gulpfile.js
   package.json
   package-lock.json
@@ -60,10 +60,6 @@ When executing `npm start` without the `NODE_ENV` environment variable set to `p
 ### AMP validation
 
 With each build, the resulting HTML is validated against the AMP standard and the build fails if invalid.
-
-### pm2
-
-The application is monitored via [pm2](http://pm2.keymetrics.io). Customize monitoring settings via [`src/server/pm2.json`](src/server/pm2.json).
 
 ### (LD+)JSON
 
@@ -109,7 +105,7 @@ Variables global to all templates are set in [`src/templates/vars.json`](src/tem
 
 Please look at [`src/templates/vars.json`](src/templates/vars.json) and [`src/templates/views.json`](src/templates/views.json) for some basic examples.
 
-#### Server
+### Server
 
 This skeleton comes equipped with a environment aware [`Koa`](http://koajs.com/) server with compression and basic caching enabled. Configure the server via the following environment variables:
 
@@ -118,6 +114,10 @@ This skeleton comes equipped with a environment aware [`Koa`](http://koajs.com/)
 * `CACHE_MAXAGE`: [default: 60000 *(= 1 minute)*]
 
 Please have a look at [`src/server/index.js`](src/server/index.js) and adjust according to your needs.
+
+### Docker
+
+This skeleton provides a rudimentary [`Dockerfile`](Dockerfile)
 
 ## [Changelog](CHANGELOG.md)
 

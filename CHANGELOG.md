@@ -1,3 +1,7 @@
+## 1.3.0
+* [#6: Remove pm2.](https://github.com/haensl/node-amp-mustache-skeleton/issues/6)
+* Update to gulp 4.
+
 ## 1.2.0
 * Add etags.
 * Refactor demo site.
