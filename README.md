@@ -55,7 +55,7 @@ AMP page skeleton served via node.js featuring mustache templating and equipped 
 
 ### CI
 
-When executing `npm start` without the `NODE_ENV` environment variable set to `production`, gulp is instructed to watch changes to front-end files and automatically rebuild the project. The same goes for the backend which is monitored via `pm2` and restarted if relevant files change.
+When executing `npm start` without the `NODE_ENV` environment variable set to `production`, gulp is instructed to watch changes to source files and automatically rebuild the project.
 
 ### AMP validation
 
