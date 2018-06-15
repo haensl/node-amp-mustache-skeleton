@@ -1,3 +1,6 @@
+## 1.3.1
+* [#8: Fix ensureDistImgDirExists gulp task.](https://github.com/haensl/node-amp-mustache-skeleton/issues/8)
+
 ## 1.3.0
 * [#6: Remove pm2.](https://github.com/haensl/node-amp-mustache-skeleton/issues/6)
 * Update to gulp 4.

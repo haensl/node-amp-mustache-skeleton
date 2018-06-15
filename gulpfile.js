@@ -50,10 +50,10 @@ gulp.task('ensureDistDirExists', (done) => {
   done();
 });
 
-gulp.task('ensureDistImgDirExists', (done) => {
+gulp.task('ensureDistImgDirExists', gulp.series(['ensureDistDirExists', (done) => {
   ensureDirectory(DIR_DIST_IMG);
   done();
-});
+}]));
 
 gulp.task('clean:seofiles', gulp.series(['ensureDistDirExists', () =>
   del([

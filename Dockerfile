@@ -1,7 +1,7 @@
 FROM node:alpine
 COPY --chown=node:node dist/ /var/www/
 USER node
-LABEL version="1.3.0"
+LABEL version="1.3.1"
 WORKDIR /var/www
 ENV NODE_ENV production
 ENV PORT 8080
