@@ -1,3 +1,6 @@
+## 1.3.2
+* [#10: Update dependencies.](https://github.com/haensl/node-amp-mustache-skeleton/issues/10)
+
 ## 1.3.1
 * [#8: Fix ensureDistImgDirExists gulp task.](https://github.com/haensl/node-amp-mustache-skeleton/issues/8)
 
