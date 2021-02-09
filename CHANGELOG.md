@@ -1,3 +1,6 @@
+## 1.3.3
+* [#12: Update dependencies.](https://github.com/haensl/node-amp-mustache-skeleton/issues/12)
+
 ## 1.3.2
 * [#10: Update dependencies.](https://github.com/haensl/node-amp-mustache-skeleton/issues/10)
 
