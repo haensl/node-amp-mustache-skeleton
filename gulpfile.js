@@ -148,8 +148,10 @@ gulp.task('css', gulp.series(['clean:css', () =>
   new Promise((resolve, reject) =>
     gulp.src(`${DIR_SRC_CSS}/*.css`)
       .pipe($.concat(FILE_STYLES))
-      .pipe($.postcss([require('autoprefixer')()]))
-      .pipe($.cssmin())
+      .pipe($.postcss([
+        require('autoprefixer')(),
+        require('cssnano')()
+      ]))
       .pipe(gulp.dest(DIR_DIST))
       .on('end', resolve)
       .on('error', reject))]));
