@@ -1,3 +1,6 @@
+## 1.3.7
+* [#21: Update dependencies.](https://github.com/haensl/node-amp-mustache-skeleton/issues/21)
+
 ## 1.3.6
 * [#18: Update dependencies.](https://github.com/haensl/node-amp-mustache-skeleton/issues/18)
 * Replace `gulp-cssmin` with `postcss/cssnano`.
