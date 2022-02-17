@@ -1,18 +1,18 @@
 {
   "name": "node-amp-mustache-skeleton",
-  "version": "1.3.9",
+  "version": "1.3.10",
   "description": "AMP page skeleton served via node.js featuring mustache templating.",
   "main": "index.js",
   "engines": {
     "node": ">=8.11.2"
   },
   "scripts": {
+    "build": "gulp build",
+    "build:docker": "docker build -t node-amp-mustache-skeleton:1.3.0 .",
     "start": "[ $NODE_ENV == production ] && node index.js || run-s build start:watch",
     "start:server": "cd dist && node index.js",
     "start:watch": "run-p start:server watch:all",
     "test": "mocha",
-    "build": "gulp build",
-    "build:docker": "docker build -t node-amp-mustache-skeleton:1.3.0 .",
     "watch:client": "gulp watch:client",
     "watch:server": "gulp watch:server",
     "watch:all": "run-p watch:client watch:server"
@@ -39,6 +39,7 @@
     "twitter": "@h_p_d",
     "url": "https://hpdietz.com"
   },
+  "funding": "https://github.com/sponsors/haensl",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/haensl/node-amp-mustache-skeleton/issues"
