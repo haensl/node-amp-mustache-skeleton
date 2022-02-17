@@ -1,3 +1,7 @@
+## 1.3.10
+* [#27: Add funding information.](https://github.com/haensl/node-amp-mustache-skeleton/issues/27)
+* Update dependencies.
+
 ## 1.3.9
 * [#25: Update dependencies.](https://github.com/haensl/node-amp-mustache-skeleton/issues/25)
 
